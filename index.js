@@ -1,31 +1,18 @@
-//creating a login attempt
-function createLogin() {
+function createLoginTracker (user) {
     let attempt = 3;
-    let login = (pin) => {
+
+    return (password) => {
         if (attempt === 0) {
-            console.log("access denied") 
+            return "Account locked due to too many failed login attempts";
         }
-        if (pin === userInfo.pin){
-            console.log("access granted")  
+        if (password === user.password){
+            return "Login successful";
         }
         else {
+            const attemptMessage = 4 - attempt;
             attempt--;
-            console.log(`incorrect pin. You have ${attempt} attemp left`);
+            return `Attempt ${attemptMessage}: Login failed`;
         }
-    }
-    return login;
+    };
 };
-//creating user info
-let userInfo = {
-    name: "Martin Maxwell",
-    pin: "250250"
-};
-let loginattempt = createLogin(userInfo.pin);
-//loginTrials
-//firstTrial
-loginattempt("254254"); //Output: incorrect pin.
-loginattempt("250250"); //Output:access granted.
-
-module.exports = {
-  ...(typeof createLoginTracker !== 'undefined' && { createLoginTracker })
-};
+module.exports = {createLoginTracker};
